@@ -311,6 +311,7 @@
     <nav role="tablist" aria-label="關卡選擇">
       <button class="tab" role="tab" aria-selected="true"  aria-controls="v1" id="t1">🧪 實驗一 · 變色魔法</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="v2" id="t2">🍹 練習一 · 漸層調酒</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="vsg" id="tsg">⚖️ 比重大發現</button>
       <button class="tab" role="tab" aria-selected="false" aria-controls="v3" id="t3">✅ 闖關測驗 · 10題</button>
     </nav>
   </div>
@@ -502,6 +503,79 @@
   </div>
 </section>
 
+<!-- ===================== 比重大發現 ===================== -->
+<section class="view" id="vsg" role="tabpanel" aria-labelledby="tsg">
+  <div class="wrap">
+    <div class="hero">
+      <span class="eyebrow">比重 · 跟水比一比</span>
+      <h2>這一杯，<span class="hl">是水的幾倍重？</span> ⚖️</h2>
+      <p class="lead">「比重」就是<b>同樣多的一杯液體，是水的幾倍重</b>。把水當基準，水的比重剛好是 <b>1</b>。比水重（比重大於 1）就會沉到下面——這正是漸層飲料下層的祕密！把方糖加進右邊那杯，看看比重會怎麼變。</p>
+    </div>
+
+    <div class="grid lab-grid">
+      <!-- left: balance -->
+      <div class="card">
+        <div class="stage" style="min-height:330px">
+          <div class="glow-wrap" id="glowSg">
+            <svg width="330" height="290" viewBox="0 0 330 290" aria-label="比較水和糖水輕重的天平">
+              <!-- stand -->
+              <rect x="158" y="74" width="14" height="170" rx="4" fill="#9aa6cf" opacity=".55"/>
+              <rect x="120" y="244" width="90" height="12" rx="6" fill="#8b95c4" opacity=".7"/>
+              <circle cx="165" cy="74" r="9" fill="#7682b0"/>
+              <!-- beam (rotates) -->
+              <g id="beam" transform="rotate(0 165 74)">
+                <rect x="45" y="70" width="240" height="9" rx="4.5" fill="#7682b0"/>
+                <!-- left hanger + pan (water) -->
+                <line x1="70" y1="79" x2="70" y2="116" stroke="#9aa6cf" stroke-width="2.5"/>
+                <path d="M44 116 H96 L88 150 Q88 156 82 156 H58 Q52 156 52 150 Z" fill="rgba(120,160,255,.30)" stroke="#6f8ad0" stroke-width="2"/>
+                <ellipse cx="70" cy="116" rx="26" ry="6" fill="#4361ee" opacity=".55"/>
+                <text x="70" y="138" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="14" font-weight="700" fill="#27408b">水</text>
+                <!-- right hanger + pan (sugar water) -->
+                <line x1="260" y1="79" x2="260" y2="116" stroke="#9aa6cf" stroke-width="2.5"/>
+                <path d="M234 116 H286 L278 150 Q278 156 272 156 H248 Q242 156 242 150 Z" id="sgCup" fill="rgba(255,212,121,.30)" stroke="#c9870f" stroke-width="2"/>
+                <ellipse id="sgSurface" cx="260" cy="116" rx="26" ry="6" fill="#ffd479" opacity=".7"/>
+                <text x="260" y="138" text-anchor="middle" font-family="'Noto Sans TC',sans-serif" font-size="13" font-weight="700" fill="#8a5a00">糖水</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="reading">
+          <div class="ph" id="sgNum" style="color:var(--pea);font-size:2.4rem">比重 1.00</div>
+          <div class="state" id="sgSub" style="color:var(--muted)">這杯是水的 1.00 倍重</div>
+        </div>
+      </div>
+
+      <!-- right: controls + explain -->
+      <div style="display:grid;gap:22px">
+        <div class="card">
+          <h3><span class="num">①</span> 在右邊那杯加方糖</h3>
+          <p class="hint" style="margin-bottom:14px">兩杯一樣多，左邊永遠是純水。加方糖讓右邊變重，看天平怎麼倒、比重怎麼變。</p>
+          <div class="sugarbox">
+            <label style="font-size:.86rem;color:var(--muted);font-weight:600;display:flex;justify-content:space-between">
+              <span>方糖顆數</span><span class="val"><span id="sgSugarVal">0</span> 顆方糖</span>
+            </label>
+            <input type="range" id="sgRange" min="0" max="6" step="1" value="0" style="accent-color:var(--sugar)">
+            <p class="hint" style="margin-top:8px;font-size:.82rem">糖越多 → 越重 → 比重越大。</p>
+          </div>
+          <button class="drop-btn btn-reset" id="sgReset" style="margin-top:12px">↺ 回到純水（比重 1.00）</button>
+        </div>
+
+        <div class="card">
+          <h3><span class="num">②</span> 比重是什麼意思？</h3>
+          <div class="explain" id="sgExplain">
+            <b>現在右邊是純水。</b>兩杯一樣重，天平平平的。水的比重就是 <b>1.00</b>，是大家比較的基準。加點方糖試試看！
+          </div>
+        </div>
+
+        <div class="card">
+          <h3><span class="num">③</span> 跟漸層飲料的關係</h3>
+          <p class="hint" style="font-size:.9rem;line-height:1.7">比重越大 → 越重 → 在漸層飲料裡待在<b>越下層</b>。沒加糖的蝶豆花水最接近水（比重最接近 1）、最輕，所以浮在<b>最上層</b>。科學家用「<b>比重計</b>」就能直接量出液體的比重——你們之後也會自己做一個喔！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== 測驗 ===================== -->
 <section class="view" id="v3" role="tabpanel" aria-labelledby="t3">
   <div class="wrap">
@@ -532,7 +606,7 @@
   var $$ = function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s));};
 
   /* ---------------- Tabs ---------------- */
-  var tabs = $$('.tab'), views = {v1:$('#v1'),v2:$('#v2'),v3:$('#v3')};
+  var tabs = $$('.tab'), views = {v1:$('#v1'),v2:$('#v2'),vsg:$('#vsg'),v3:$('#v3')};
   function selectTab(tab){
     tabs.forEach(function(t){t.setAttribute('aria-selected', t===tab ? 'true':'false');});
     Object.keys(views).forEach(function(k){
@@ -580,6 +654,48 @@
   $('#addBase').addEventListener('click',function(){setState('base');});
   $('#resetMix').addEventListener('click',function(){setState('neutral');});
   setState('neutral');
+
+  /* ================= 比重大發現：天平 ================= */
+  (function(){
+    var range=$('#sgRange'), sugarVal=$('#sgSugarVal'), beam=$('#beam'),
+        cup=$('#sgCup'), surf=$('#sgSurface'), num=$('#sgNum'), sub=$('#sgSub'),
+        explain=$('#sgExplain'), glow=$('#glowSg'), reset=$('#sgReset');
+    if(!range) return;
+
+    function sgValue(cubes){ return 1.00 + cubes*0.03; } // 純水1.00 → 6顆≈1.18
+
+    function setSg(cubes){
+      cubes=Math.max(0,Math.min(6,cubes));
+      var sg=sgValue(cubes);
+      sugarVal.textContent=cubes;
+      num.textContent='比重 '+sg.toFixed(2);
+      sub.textContent='這杯是水的 '+sg.toFixed(2)+' 倍重';
+      // 糖水顏色隨糖量加深
+      var op=(0.30+cubes*0.07).toFixed(2);
+      cup.setAttribute('fill','rgba(255,212,121,'+op+')');
+      surf.setAttribute('opacity',(0.55+cubes*0.05).toFixed(2));
+      // 天平傾斜：糖越多右邊越重，往右下倒（最多約 10 度）
+      var ang=cubes*1.7;
+      beam.setAttribute('transform','rotate('+ang+' 165 74)');
+      // 狀態文字
+      var cssPea=getComputedStyle(document.documentElement).getPropertyValue('--pea').trim();
+      var cssSugar=getComputedStyle(document.documentElement).getPropertyValue('--sugar').trim();
+      if(cubes===0){
+        num.style.color=cssPea;
+        explain.style.borderColor=cssPea;
+        explain.innerHTML='<b>現在右邊是純水。</b>兩杯一樣重，天平平平的。水的比重就是 <b>1.00</b>，是大家比較的基準。加點方糖試試看！';
+        glow.style.filter='';
+      } else {
+        num.style.color=cssSugar;
+        explain.style.borderColor=cssSugar;
+        explain.innerHTML='<b>右邊的糖水比水重了！</b>比重 '+sg.toFixed(2)+'（是水的 '+sg.toFixed(2)+' 倍重），天平往右邊沉。比重<b>大於 1 就比水重，會沉下去</b>；在漸層飲料裡，比重越大的會待在<b>越下層</b>。';
+        glow.style.filter='drop-shadow(0 0 22px rgba(201,135,15,.4))';
+      }
+    }
+    range.addEventListener('input',function(){setSg(parseInt(range.value,10));});
+    reset.addEventListener('click',function(){range.value=0;setSg(0);});
+    setSg(0);
+  })();
 
   /* ================= 練習一：漸層調酒 ================= */
   var LIQS={
