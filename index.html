@@ -142,6 +142,8 @@
   .drop-btn small{display:block;font-weight:600;font-size:.74rem;opacity:.8}
   .btn-acid{background:linear-gradient(120deg,#ff7eb3,var(--acid))}
   .btn-base{background:linear-gradient(120deg,#7af5d6,var(--base))}
+  .btn-ice{background:linear-gradient(120deg,#e3f6ff,#a8def5)}
+  .btn-ice[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(168,222,245,.45),0 8px 22px rgba(0,0,0,.3)}
   .btn-reset{
     background:var(--ink-2);color:var(--muted);font-weight:600;border:1px solid var(--line);
     box-shadow:none;justify-content:center;font-size:.92rem;padding:11px
@@ -405,7 +407,7 @@
     <div class="hero">
       <span class="eyebrow">練習一 · 調理大師登場</span>
       <h2>誰重誰先下，<span class="hl">疊出漸層彩虹飲</span> 🌈</h2>
-      <p class="lead">為什麼飲料可以一層一層不混在一起？秘密就是<b>重量（比重）</b>！糖加得越多，水就越<b>重</b>，會沉在最下面。先倒最甜最重的，再慢慢往上疊輕的，就能變出漂亮的漸層飲料。試試看你能不能成功疊三層！</p>
+      <p class="lead">為什麼飲料可以一層一層不混在一起？秘密有兩個:<b>重量(比重)</b>和<b>冰塊</b>!糖越多水越<b>重</b>,要先倒在最下面;再<b>加冰塊</b>,把輕的飲料<b>沿著冰塊輕輕倒</b>才不會沖混。最神奇的是:最後倒入的藍色<b>蝶豆花水</b>碰到下層酸酸的檸檬水,<b>交界會變出紫紅色</b>——漸層就完成了!</p>
     </div>
 
     <div class="grid bar-grid">
@@ -423,9 +425,11 @@
                   <stop offset="1" stop-color="#fff" stop-opacity=".10"/>
                 </linearGradient>
               </defs>
+              <defs id="dynGrads"></defs>
               <g clip-path="url(#glassClip)">
                 <g id="layers"></g>
                 <rect x="52" y="36" width="66" height="226" fill="url(#glassShine)"/>
+                <g id="iceG"></g>
               </g>
               <path d="M52 36 L60 256 Q60 262 66 262 L104 262 Q110 262 110 256 L118 36"
                     fill="none" stroke="#cdd6ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
@@ -433,7 +437,7 @@
             </svg>
           </div>
         </div>
-        <div class="toast" id="barToast">先選一種飲料，調好甜度，再按「倒入杯中」開始疊層 ✨</div>
+        <div class="toast" id="barToast">教案順序:糖水當底 → 🧊 加冰塊 → 檸檬水/小蘇打水沿冰塊倒 → 最後輕輕倒蝶豆花水 ✨</div>
         <div class="layer-legend" id="legend"></div>
       </div>
 
@@ -442,10 +446,10 @@
         <div class="card">
           <h3><span class="num">①</span> 選一種飲料</h3>
           <div class="palette" id="palette">
-            <button class="liq" data-liq="sugar"  aria-pressed="false"><span class="chip" style="background:#ffd479;color:#ffd479"></span><span><b>糖水</b><small>金黃 · 通常最甜最重</small></span></button>
-            <button class="liq" data-liq="lemon"  aria-pressed="false"><span class="chip" style="background:#e83e8c;color:#e83e8c"></span><span><b>檸檬蝶豆花水</b><small>紫紅 · 酸酸甜甜</small></span></button>
-            <button class="liq" data-liq="soda"   aria-pressed="false"><span class="chip" style="background:#16c79a;color:#16c79a"></span><span><b>小蘇打蝶豆花水</b><small>藍綠 · 清涼</small></span></button>
-            <button class="liq" data-liq="pea"    aria-pressed="false"><span class="chip" style="background:#4361ee;color:#4361ee"></span><span><b>純蝶豆花水</b><small>湛藍 · 沒有加糖最輕</small></span></button>
+            <button class="liq" data-liq="sugar"  aria-pressed="false"><span class="chip" style="background:#ffd479;color:#ffd479"></span><span><b>糖水</b><small>金黃 · 最甜最重，先倒當底（建議 6 匙）</small></span></button>
+            <button class="liq" data-liq="lemon"  aria-pressed="false"><span class="chip" style="background:#f2e296;color:#f2e296"></span><span><b>檸檬水</b><small>淡黃 · 酸性（建議 2~3 匙糖）</small></span></button>
+            <button class="liq" data-liq="soda"   aria-pressed="false"><span class="chip" style="background:#d6e4f2;color:#d6e4f2"></span><span><b>小蘇打水</b><small>近透明 · 鹼性（建議 2~3 匙糖）</small></span></button>
+            <button class="liq" data-liq="pea"    aria-pressed="false"><span class="chip" style="background:#4361ee;color:#4361ee"></span><span><b>蝶豆花水</b><small>湛藍 · 無糖最輕，最後輕輕倒最上層</small></span></button>
           </div>
         </div>
 
@@ -459,8 +463,22 @@
             <div class="weightbar"><i id="weightFill" style="width:50%"></i></div>
             <p class="hint" style="margin-top:8px;font-size:.82rem">糖越多 → 越重 → 要越早倒、放越下層。</p>
           </div>
+          <button class="drop-btn btn-ice" id="iceBtn" aria-pressed="false" style="margin-top:4px">
+            <span class="ico">🧊</span>
+            <span id="iceLabel">加冰塊到杯中<small>沿著冰塊輕輕倒，才不會混在一起</small></span>
+          </button>
           <button class="pour" id="pourBtn" disabled>🫗 倒入杯中</button>
           <button class="drop-btn btn-reset" id="resetGlass" style="margin-top:10px">↺ 清空杯子重新調製</button>
+        </div>
+
+        <div class="card">
+          <h3><span class="num">③</span> 真的動手做（教案配方）</h3>
+          <ol class="steps">
+            <li><span>先加入<b>糖水</b>（6 平匙糖）當底。</span></li>
+            <li><span>再加入<b>冰塊</b>到杯口（約九分滿）。</span></li>
+            <li><span>緩緩將<b>檸檬水或小蘇打水</b>（2~3 平匙糖）沿著冰塊倒入。</span></li>
+            <li><span>最後緩緩倒入<b>蝶豆花水（無糖）</b>，看交界變色，完成！</span></li>
+          </ol>
         </div>
       </div>
     </div>
@@ -584,20 +602,22 @@
 
   /* ================= 練習一：漸層調酒 ================= */
   var LIQS={
-    sugar:{name:'糖水',        color:[255,212,121]},
-    lemon:{name:'檸檬蝶豆花水', color:[232,62,140]},
-    soda: {name:'小蘇打蝶豆花水',color:[22,199,154]},
-    pea:  {name:'純蝶豆花水',   color:[67,97,238]}
+    sugar:{name:'糖水',     color:[255,212,121], pea:false, acid:0},
+    lemon:{name:'檸檬水',   color:[242,226,150], pea:false, acid:-1},
+    soda: {name:'小蘇打水', color:[214,228,242], pea:false, acid:1},
+    pea:  {name:'蝶豆花水', color:[67,97,238],   pea:true,  acid:0}
   };
+  var REACT_ACID=[214,51,108], REACT_BASE=[22,199,154]; // 花青素遇酸/鹼的反應色
   var GLASS={top:36, bottom:262, x:52, w:66}; // svg geometry of inner glass
   var GLASS_BOTTOM_W=50, GLASS_BOTTOM_X=60;
   var stack=[];               // {density,color,name} bottom-first
   var maxLayers=5;
-  var selected=null, sugar=3;
+  var selected=null, sugar=3, hasIce=false;
 
   var palette=$('#palette'), sugarRange=$('#sugarRange'), sugarVal=$('#sugarVal'),
       weightFill=$('#weightFill'), pourBtn=$('#pourBtn'), barToast=$('#barToast'),
-      layersG=$('#layers'), legend=$('#legend'), glow2=$('#glow2');
+      layersG=$('#layers'), legend=$('#legend'), glow2=$('#glow2'),
+      iceBtn=$('#iceBtn'), iceLabel=$('#iceLabel'), iceG=$('#iceG'), dynGrads=$('#dynGrads');
 
   $$('.liq',palette).forEach(function(b){
     b.addEventListener('click',function(){
@@ -619,6 +639,70 @@
 
   function colMix(a,b){return [Math.round((a[0]+b[0])/2),Math.round((a[1]+b[1])/2),Math.round((a[2]+b[2])/2)];}
 
+  // 花青素交界反應：藍色蝶豆花層碰到酸/鹼的鄰層，交界處會變色——這就是漸層的來源！
+  function reactColor(acid){ return acid<0 ? REACT_ACID : REACT_BASE; }
+  function layerFill(i){
+    var L=stack[i];
+    if(!L.pea || L.acid!==0) return rgb(L.color);   // 非蝶豆花、或已混合反應過 → 單色
+    var below=stack[i-1], above=stack[i+1];
+    var bR=(below && !below.pea && below.acid!==0) ? reactColor(below.acid) : null;
+    var tR=(above && !above.pea && above.acid!==0) ? reactColor(above.acid) : null;
+    if(!bR && !tR) return rgb(L.color);
+    var id='lg'+i, blue=rgb(L.color), stops='';
+    stops+='<stop offset="0%" stop-color="'+(tR?rgb(tR):blue)+'"/>';
+    if(tR) stops+='<stop offset="38%" stop-color="'+blue+'"/>';
+    if(bR) stops+='<stop offset="55%" stop-color="'+blue+'"/>';
+    stops+='<stop offset="100%" stop-color="'+(bR?rgb(bR):blue)+'"/>';
+    dynGrads.innerHTML+='<linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1">'+stops+'</linearGradient>';
+    return 'url(#'+id+')';
+  }
+  function hasReaction(){
+    for(var i=0;i<stack.length;i++){
+      var L=stack[i]; if(!L.pea || L.acid!==0) continue;
+      var b=stack[i-1], a=stack[i+1];
+      if((b&&!b.pea&&b.acid!==0)||(a&&!a.pea&&a.acid!==0)) return true;
+    }
+    return false;
+  }
+
+  // 冰塊圖形：像真的調酒一樣加到九分滿，從杯底附近自然散佈到杯口（超出杯壁會被裁切）
+  var ICE_CUBES=[
+    {x:68,y:58,s:16,r:-10},{x:96,y:64,s:14,r:12},
+    {x:80,y:84,s:17,r:-5},{x:106,y:92,s:13,r:8},
+    {x:64,y:108,s:15,r:15},{x:92,y:118,s:16,r:-12},
+    {x:72,y:142,s:14,r:6},{x:102,y:150,s:15,r:-8},
+    {x:84,y:172,s:17,r:10},{x:66,y:198,s:13,r:-14},
+    {x:98,y:204,s:14,r:7},{x:82,y:228,s:15,r:-6}
+  ];
+  function renderIce(){
+    if(!hasIce){ iceG.innerHTML=''; return; }
+    var html='';
+    ICE_CUBES.forEach(function(c){
+      var h=c.s/2;
+      html+='<g transform="translate('+c.x+','+c.y+') rotate('+c.r+')">'+
+        '<rect x="'+(-h)+'" y="'+(-h)+'" width="'+c.s+'" height="'+c.s+'" rx="4" '+
+        'fill="#ffffff" fill-opacity="0.22" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.2"/>'+
+        '<rect x="'+(-h+2.5)+'" y="'+(-h+2.5)+'" width="'+(c.s*0.3)+'" height="'+(c.s*0.3)+'" rx="2" '+
+        'fill="#ffffff" fill-opacity="0.55"/></g>';
+    });
+    iceG.innerHTML=html;
+  }
+
+  iceBtn.addEventListener('click',function(){
+    if(hasIce){
+      barToast.className='toast';
+      barToast.textContent='冰塊已經在杯子裡囉，接著選比較輕的飲料，沿著冰塊輕輕倒入。';
+      return;
+    }
+    hasIce=true;
+    iceBtn.setAttribute('aria-pressed','true');
+    iceLabel.innerHTML='已加冰塊 ❄️<small>現在沿著冰塊輕輕倒，才不會混</small>';
+    renderIce();
+    glow2.style.filter='drop-shadow(0 0 22px rgba(168,222,245,.55))';
+    barToast.className='toast ok';
+    barToast.textContent='冰塊加到九分滿了 🧊 現在把比較輕（糖比較少）的飲料沿著冰塊慢慢倒，就能乖乖疊上去！';
+  });
+
   // 杯子是上寬下窄，依高度算寬度，讓液面貼合杯壁
   function widthAt(y){
     var t=(y-GLASS.top)/(GLASS.bottom-GLASS.top); // 0 top -> 1 bottom
@@ -632,7 +716,7 @@
   }
 
   function renderStack(animateNew){
-    layersG.innerHTML='';
+    layersG.innerHTML=''; dynGrads.innerHTML='';
     var usableTop=GLASS.top+18;            // 留一點空杯口
     var usableBottom=GLASS.bottom-2;
     var totalH=usableBottom-usableTop;
@@ -647,7 +731,7 @@
       var r=document.createElementNS('http://www.w3.org/2000/svg','rect');
       r.setAttribute('x',GLASS.x); r.setAttribute('width',GLASS.w);
       r.setAttribute('y',yTop); r.setAttribute('height',hPer+0.6);
-      r.setAttribute('fill',rgb(layer.color));
+      r.setAttribute('fill',layerFill(i));
       if(animateNew && i===n-1){
         r.setAttribute('y',usableBottom-0.5); r.setAttribute('height',0.5);
         layersG.appendChild(r);
@@ -684,22 +768,41 @@
 
   function checkWin(){
     if(stack.length>=3){
-      // 確認是乾淨分層（每層都比下層輕，已由邏輯保證未混合）
       barToast.className='toast win';
-      barToast.innerHTML='🎉 太棒了！你成功疊出 '+stack.length+' 層漸層飲料！秘訣就是<b>最重的先倒、最輕的最後輕輕加</b>。';
+      barToast.innerHTML='🎉 太棒了！你成功疊出 '+stack.length+' 層漸層飲料！秘訣：<b>最重的先倒</b>、<b>加冰塊沿著冰塊輕輕倒</b>'+
+        (hasReaction()?'。再看交界處——藍色蝶豆花水碰到酸/鹼，邊界變色了，這就是漸層最美的地方 🌈':'，最輕的最後加 🧊');
       glow2.style.filter='drop-shadow(0 0 30px rgba(255,200,87,.65))';
     }
   }
 
+  // 混合時的化學：含蝶豆花＋酸 → 整層變紫紅；含蝶豆花＋鹼 → 變藍綠
+  function mixInto(top,nl){
+    var pea=top.pea||nl.pea;
+    var acid;
+    if(top.acid===0) acid=nl.acid;
+    else if(nl.acid===0) acid=top.acid;
+    else acid=(top.acid===nl.acid)?top.acid:0;   // 酸+鹼 → 互相中和
+    var color;
+    if(pea && acid<0)      color=REACT_ACID.slice();
+    else if(pea && acid>0) color=REACT_BASE.slice();
+    else if(pea)           color=LIQS.pea.color.slice();
+    else                   color=colMix(top.color,nl.color);
+    top.pea=pea; top.acid=acid; top.color=color;
+    top.density=Math.max(top.density,nl.density);
+    top.name=top.name+'＋'+nl.name;
+    // 回傳是否發生變色反應，給提示用
+    return pea && acid!==0;
+  }
+
   pourBtn.addEventListener('click',function(){
     if(!selected) return;
-    var d=density(selected,sugar);
-    var newLayer={density:d,color:LIQS[selected].color.slice(),name:LIQS[selected].name};
+    var L=LIQS[selected];
+    var newLayer={density:density(selected,sugar),color:L.color.slice(),name:L.name,pea:L.pea,acid:L.acid};
 
     if(stack.length===0){
       stack.push(newLayer);
       barToast.className='toast ok';
-      barToast.textContent='第 1 層下去了！接著倒「比較輕（糖比較少）」的飲料疊上去。';
+      barToast.innerHTML='第 1 層下去了！接著按「🧊 加冰塊」，再倒比較輕（糖比較少）的飲料疊上去。';
       renderStack(true); return;
     }
     if(stack.length>=maxLayers){
@@ -709,30 +812,48 @@
     }
 
     var top=stack[stack.length-1];
-    if(d < top.density - 0.001){
-      // 比上層輕 → 乾淨疊一層
+    var lighter=(newLayer.density < top.density - 0.001);
+
+    if(lighter && hasIce){
+      // 比上層輕 + 有冰塊緩衝 → 乾淨疊一層
       stack.push(newLayer);
-      barToast.className='toast ok';
-      barToast.textContent='漂亮！這層比下面輕，乖乖浮在上面，又多一層漸層 ✨';
       renderStack(true);
+      // 交界反應提示：藍色蝶豆花水碰到下層的酸/鹼
+      if(newLayer.pea && !top.pea && top.acid!==0){
+        barToast.className='toast win';
+        barToast.innerHTML=(top.acid<0
+          ? '🌈 看交界處！藍色蝶豆花水碰到下層酸酸的'+top.name.split('＋')[0]+'，邊界變出<b>紫紅色</b>——漸層出現了！'
+          : '🌈 看交界處！藍色蝶豆花水碰到下層鹼性的'+top.name.split('＋')[0]+'，邊界變出<b>藍綠色</b>——漸層出現了！');
+      } else {
+        barToast.className='toast ok';
+        barToast.textContent='漂亮！沿著冰塊輕輕倒，這層穩穩浮在上面，又多一層 ✨';
+      }
       checkWin();
-    } else {
-      // 一樣重或更重 → 沉下去混合
-      var mixed=colMix(top.color,newLayer.color);
-      top.color=mixed;
-      top.density=Math.max(top.density,d);
-      top.name=top.name+'＋'+newLayer.name;
+    } else if(lighter && !hasIce){
+      // 比上層輕，但沒冰塊 → 水流太衝把下層沖混
+      var reactedA=mixInto(top,newLayer);
       barToast.className='toast mix';
-      barToast.innerHTML='💧 糟糕，它沉下去和下層<b>混在一起</b>了！因為它<b>一樣重或更重</b>。記得：重的要先倒喔。';
+      barToast.innerHTML='💧 沒加冰塊，倒下去的水太衝，把下層<b>沖混</b>了！先按「🧊 加冰塊」，再沿著冰塊輕輕倒就不會混。'+
+        (reactedA?'（你看，蝶豆花碰到'+(top.acid<0?'酸，整層變紫紅':'鹼，整層變藍綠')+'了！）':'');
+      renderStack(false);
+    } else {
+      // 一樣重或更重 → 沉下去混合（不論有沒有冰塊）
+      var reactedB=mixInto(top,newLayer);
+      barToast.className='toast mix';
+      barToast.innerHTML='💧 糟糕，它<b>一樣重或更重</b>，沉下去和下層混在一起了！記得：糖多（比較重）的要先倒。'+
+        (reactedB?'（你看，蝶豆花碰到'+(top.acid<0?'酸，整層變紫紅':'鹼，整層變藍綠')+'了！）':'');
       renderStack(false);
     }
   });
 
   $('#resetGlass').addEventListener('click',function(){
-    stack=[]; renderStack(false);
+    stack=[]; hasIce=false;
+    renderStack(false); renderIce();
+    iceBtn.setAttribute('aria-pressed','false');
+    iceLabel.innerHTML='加冰塊到杯中<small>沿著冰塊輕輕倒，才不會混在一起</small>';
     glow2.style.filter='';
     barToast.className='toast';
-    barToast.textContent='杯子清空了！選一種飲料、調好甜度，重新挑戰三層漸層飲。';
+    barToast.textContent='杯子清空了！順序：選飲料 → 先倒最重的當底 → 加冰塊 → 再倒輕的疊層。';
   });
   renderStack(false);
 
