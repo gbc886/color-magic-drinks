@@ -463,10 +463,10 @@
         <div class="card">
           <h3><span class="num">①</span> 選一種飲料</h3>
           <div class="palette" id="palette">
-            <button class="liq" data-liq="sugar"  aria-pressed="false"><span class="chip" style="background:#ffd479;color:#ffd479"></span><span><b>糖水</b><small>金黃 · 最甜最重，先倒當底（建議 6 顆）</small></span></button>
-            <button class="liq" data-liq="lemon"  aria-pressed="false"><span class="chip" style="background:#f2e296;color:#f2e296"></span><span><b>檸檬水</b><small>淡黃 · 酸性（建議 2~3 顆糖）</small></span></button>
-            <button class="liq" data-liq="soda"   aria-pressed="false"><span class="chip" style="background:#d6e4f2;color:#d6e4f2"></span><span><b>小蘇打水</b><small>近透明 · 鹼性（建議 2~3 顆糖）</small></span></button>
-            <button class="liq" data-liq="pea"    aria-pressed="false"><span class="chip" style="background:#4361ee;color:#4361ee"></span><span><b>蝶豆花水</b><small>湛藍 · 無糖最輕，最後輕輕倒最上層</small></span></button>
+            <button class="liq" data-liq="sugar"  aria-pressed="false"><span class="chip" style="background:#ffd479;color:#ffd479"></span><span><b>糖水</b><small>金黃 · 最甜最重，先倒當底（建議 5 顆方糖）</small></span></button>
+            <button class="liq" data-liq="lemon"  aria-pressed="false"><span class="chip" style="background:#f2e296;color:#f2e296"></span><span><b>檸檬水</b><small>淡黃 · 酸性（建議 3 顆方糖）</small></span></button>
+            <button class="liq" data-liq="soda"   aria-pressed="false"><span class="chip" style="background:#d6e4f2;color:#d6e4f2"></span><span><b>小蘇打水</b><small>近透明 · 鹼性（建議 3 顆方糖）</small></span></button>
+            <button class="liq" data-liq="pea"    aria-pressed="false"><span class="chip" style="background:#4361ee;color:#4361ee"></span><span><b>蝶豆花水</b><small>湛藍 · 最輕，1 顆方糖或不加，最後倒最上層</small></span></button>
           </div>
         </div>
 
@@ -491,10 +491,10 @@
         <div class="card">
           <h3><span class="num">③</span> 真的動手做（調製步驟）</h3>
           <ol class="steps">
-            <li><span>先加入<b>糖水</b>（6 顆方糖）當底。</span></li>
+            <li><span>先加入<b>糖水</b>（5 顆方糖）當底。</span></li>
             <li><span>再加入<b>冰塊</b>到杯口（約九分滿）。</span></li>
-            <li><span>緩緩將<b>檸檬水或小蘇打水</b>（2~3 顆方糖）沿著冰塊倒入。</span></li>
-            <li><span>最後緩緩倒入<b>蝶豆花水（無糖）</b>，看交界變色，完成！</span></li>
+            <li><span>緩緩將<b>檸檬水或小蘇打水</b>（3 顆方糖）沿著冰塊倒入。</span></li>
+            <li><span>最後緩緩倒入<b>蝶豆花水（1 顆方糖，或不加）</b>，看交界變色，完成！</span></li>
           </ol>
         </div>
       </div>
@@ -607,7 +607,7 @@
       selected=b.getAttribute('data-liq');
       pourBtn.disabled=false;
       barToast.className='toast';
-      barToast.textContent='已選「'+LIQS[selected].name+'」，方糖 '+sugar+' 顆。按「倒入杯中」試試看！';
+      barToast.textContent='已選「'+LIQS[selected].name+'」，'+sugar+' 顆方糖。按「倒入杯中」試試看！';
     });
   });
   sugarRange.addEventListener('input',function(){
