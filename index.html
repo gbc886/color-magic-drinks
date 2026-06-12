@@ -463,9 +463,9 @@
         <div class="card">
           <h3><span class="num">①</span> 選一種飲料</h3>
           <div class="palette" id="palette">
-            <button class="liq" data-liq="sugar"  aria-pressed="false"><span class="chip" style="background:#ffd479;color:#ffd479"></span><span><b>糖水</b><small>金黃 · 最甜最重，先倒當底（建議 6 匙）</small></span></button>
-            <button class="liq" data-liq="lemon"  aria-pressed="false"><span class="chip" style="background:#f2e296;color:#f2e296"></span><span><b>檸檬水</b><small>淡黃 · 酸性（建議 2~3 匙糖）</small></span></button>
-            <button class="liq" data-liq="soda"   aria-pressed="false"><span class="chip" style="background:#d6e4f2;color:#d6e4f2"></span><span><b>小蘇打水</b><small>近透明 · 鹼性（建議 2~3 匙糖）</small></span></button>
+            <button class="liq" data-liq="sugar"  aria-pressed="false"><span class="chip" style="background:#ffd479;color:#ffd479"></span><span><b>糖水</b><small>金黃 · 最甜最重，先倒當底（建議 6 顆）</small></span></button>
+            <button class="liq" data-liq="lemon"  aria-pressed="false"><span class="chip" style="background:#f2e296;color:#f2e296"></span><span><b>檸檬水</b><small>淡黃 · 酸性（建議 2~3 顆糖）</small></span></button>
+            <button class="liq" data-liq="soda"   aria-pressed="false"><span class="chip" style="background:#d6e4f2;color:#d6e4f2"></span><span><b>小蘇打水</b><small>近透明 · 鹼性（建議 2~3 顆糖）</small></span></button>
             <button class="liq" data-liq="pea"    aria-pressed="false"><span class="chip" style="background:#4361ee;color:#4361ee"></span><span><b>蝶豆花水</b><small>湛藍 · 無糖最輕，最後輕輕倒最上層</small></span></button>
           </div>
         </div>
@@ -474,7 +474,7 @@
           <h3><span class="num">②</span> 加多少糖？決定重量</h3>
           <div class="sugarbox">
             <label style="font-size:.86rem;color:var(--muted);font-weight:600;display:flex;justify-content:space-between">
-              <span>砂糖匙數</span><span class="val"><span id="sugarVal">3</span> 平匙</span>
+              <span>方糖顆數</span><span class="val"><span id="sugarVal">3</span> 顆</span>
             </label>
             <input type="range" id="sugarRange" min="0" max="6" step="1" value="3" style="accent-color:var(--sugar)">
             <div class="weightbar"><i id="weightFill" style="width:50%"></i></div>
@@ -491,9 +491,9 @@
         <div class="card">
           <h3><span class="num">③</span> 真的動手做（調製步驟）</h3>
           <ol class="steps">
-            <li><span>先加入<b>糖水</b>（6 平匙糖）當底。</span></li>
+            <li><span>先加入<b>糖水</b>（6 顆方糖）當底。</span></li>
             <li><span>再加入<b>冰塊</b>到杯口（約九分滿）。</span></li>
-            <li><span>緩緩將<b>檸檬水或小蘇打水</b>（2~3 平匙糖）沿著冰塊倒入。</span></li>
+            <li><span>緩緩將<b>檸檬水或小蘇打水</b>（2~3 顆方糖）沿著冰塊倒入。</span></li>
             <li><span>最後緩緩倒入<b>蝶豆花水（無糖）</b>，看交界變色，完成！</span></li>
           </ol>
         </div>
@@ -607,7 +607,7 @@
       selected=b.getAttribute('data-liq');
       pourBtn.disabled=false;
       barToast.className='toast';
-      barToast.textContent='已選「'+LIQS[selected].name+'」，糖 '+sugar+' 平匙。按「倒入杯中」試試看！';
+      barToast.textContent='已選「'+LIQS[selected].name+'」，方糖 '+sugar+' 顆。按「倒入杯中」試試看！';
     });
   });
   sugarRange.addEventListener('input',function(){
@@ -862,8 +862,8 @@
      o:['還是藍色','紫紅色','透明','黑色'], a:1,
      fb:'答對！蝶豆花的花青素碰到<b>酸</b>會變色，所以藍色蝶豆花水和檸檬水的<b>交界</b>會出現<b>紫紅色</b>——這就是漸層最美的地方！'},
     {tag:'材料分類', q:'下列哪一個是「酸性」的材料？',
-     o:['檸檬汁','小蘇打','清水','砂糖'], a:0,
-     fb:'正確！<b>檸檬汁</b>是酸性；小蘇打是鹼性；清水大致中性。'},
+     o:['檸檬汁','小蘇打','清水','方糖'], a:0,
+     fb:'正確！<b>檸檬汁</b>是酸性；小蘇打是鹼性；清水大致中性；方糖不是酸也不是鹼。'},
     {tag:'調製技巧', q:'倒上層飲料時，要「緩緩沿著冰塊（或杯壁）倒入」，主要目的是？',
      o:['讓飲料比較冰','減緩衝擊力，避免兩層混在一起','讓糖溶得更快','把冰塊洗乾淨'], a:1,
      fb:'答對！沿著冰塊輕輕倒可以<b>減緩衝擊</b>，讓新的一層穩穩浮著，不會把下層沖混。'},
