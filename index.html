@@ -9,29 +9,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0a0e26;
-    --ink-2:#121737;
-    --ink-3:#1b2150;
-    --panel:rgba(34,42,92,0.55);
-    --line:rgba(126,142,255,0.18);
-    --pea:#4361ee;        /* 中性 · 蝶豆花藍 */
-    --acid:#e83e8c;       /* 酸性 · 紫紅 */
-    --base:#16c79a;       /* 鹼性 · 藍綠 */
-    --sugar:#ffc857;      /* 糖 · 金黃 */
-    --paper:#eef0ff;
-    --muted:#9aa6e0;
-    --good:#37d67a;
-    --bad:#ff6b81;
+    --ink:#f6f8fd;        /* page background (soft white) */
+    --ink-2:#eef1fb;      /* card-inner / input bg */
+    --ink-3:#e4e9f7;      /* slightly deeper light */
+    --panel:#ffffff;      /* card background */
+    --line:#dde3f1;       /* borders */
+    --pea:#3a52d6;        /* 中性 · 蝶豆花藍（加深以利白底閱讀）*/
+    --acid:#cf1f6e;       /* 酸性 · 紫紅 */
+    --base:#0a9472;       /* 鹼性 · 藍綠 */
+    --sugar:#c9870f;      /* 糖 · 金黃（加深供文字用）*/
+    --paper:#1b2147;      /* main text (deep navy ink) */
+    --muted:#5d6586;      /* muted text */
+    --good:#168a4d;
+    --bad:#d62f47;
     --r:20px;
-    --shadow:0 18px 50px rgba(0,0,0,.45);
+    --shadow:0 14px 40px rgba(40,50,90,.12);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
     font-family:'Fredoka','Noto Sans TC',system-ui,sans-serif;
     background:
-      radial-gradient(1100px 700px at 80% -10%, rgba(67,97,238,.20), transparent 60%),
-      radial-gradient(900px 600px at 0% 110%, rgba(232,62,140,.14), transparent 55%),
+      radial-gradient(1100px 700px at 80% -10%, rgba(67,97,238,.10), transparent 60%),
+      radial-gradient(900px 600px at 0% 110%, rgba(232,62,140,.06), transparent 55%),
       var(--ink);
     color:var(--paper);
     line-height:1.65;
@@ -44,7 +44,7 @@
   header{
     position:sticky;top:0;z-index:50;
     backdrop-filter:blur(14px);
-    background:linear-gradient(180deg, rgba(10,14,38,.92), rgba(10,14,38,.72));
+    background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.82));
     border-bottom:1px solid var(--line);
   }
   .bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 18px;max-width:1080px;margin:0 auto}
@@ -66,7 +66,7 @@
   }
   .tab:hover{color:var(--paper);border-color:rgba(126,142,255,.45);transform:translateY(-1px)}
   .tab[aria-selected="true"]{
-    color:#0a0e26;background:linear-gradient(120deg,#cdd6ff,#fff);
+    color:#fff;background:var(--pea);
     border-color:transparent;box-shadow:0 6px 18px rgba(126,142,255,.4)
   }
 
@@ -86,7 +86,7 @@
     background:linear-gradient(110deg,var(--acid),var(--pea) 50%,var(--base));
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .hero p.lead{color:#c4ccf5;max-width:62ch;font-size:1.02rem}
+  .hero p.lead{color:#414b70;max-width:62ch;font-size:1.02rem}
 
   .grid{display:grid;gap:22px;margin:26px 0 50px}
   @media(min-width:880px){.lab-grid{grid-template-columns:minmax(280px,360px) 1fr}}
@@ -132,7 +132,7 @@
   /* big controls */
   .controls{display:grid;gap:12px;margin-top:6px}
   .drop-btn{
-    appearance:none;font-family:inherit;cursor:pointer;border:none;color:#0a0e26;
+    appearance:none;font-family:inherit;cursor:pointer;border:none;color:#fff;
     font-weight:700;font-size:1rem;padding:15px 16px;border-radius:15px;
     display:flex;align-items:center;gap:12px;transition:.16s;box-shadow:0 8px 22px rgba(0,0,0,.3)
   }
@@ -140,10 +140,10 @@
   .drop-btn:active{transform:translateY(0) scale(.99)}
   .drop-btn .ico{font-size:1.4rem}
   .drop-btn small{display:block;font-weight:600;font-size:.74rem;opacity:.8}
-  .btn-acid{background:linear-gradient(120deg,#ff7eb3,var(--acid))}
-  .btn-base{background:linear-gradient(120deg,#7af5d6,var(--base))}
-  .btn-ice{background:linear-gradient(120deg,#e3f6ff,#a8def5)}
-  .btn-ice[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(168,222,245,.45),0 8px 22px rgba(0,0,0,.3)}
+  .btn-acid{background:linear-gradient(135deg,#e23a8a,var(--acid))}
+  .btn-base{background:linear-gradient(135deg,#13a07c,var(--base))}
+  .btn-ice{background:linear-gradient(135deg,#3aa6dd,#2487c4)}
+  .btn-ice[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(58,166,221,.35),0 8px 22px rgba(40,50,90,.18)}
   .btn-reset{
     background:var(--ink-2);color:var(--muted);font-weight:600;border:1px solid var(--line);
     box-shadow:none;justify-content:center;font-size:.92rem;padding:11px
@@ -166,16 +166,16 @@
   /* steps */
   .steps{list-style:none;display:grid;gap:9px;counter-reset:s}
   .steps li{
-    counter-increment:s;display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:#cfd6f7;
+    counter-increment:s;display:flex;gap:12px;align-items:flex-start;font-size:.92rem;color:#3c4566;
     background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:11px 13px
   }
   .steps li::before{
     content:counter(s);flex:0 0 auto;width:24px;height:24px;border-radius:7px;
-    display:grid;place-items:center;font-size:.8rem;font-weight:700;color:#0a0e26;
-    background:linear-gradient(120deg,#cdd6ff,#fff)
+    display:grid;place-items:center;font-size:.8rem;font-weight:700;color:#fff;
+    background:var(--pea)
   }
   .gear{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
-  .gear span{font-size:.78rem;background:var(--ink-3);border:1px solid var(--line);color:#c9d2ff;padding:4px 10px;border-radius:999px}
+  .gear span{font-size:.78rem;background:var(--ink-3);border:1px solid var(--line);color:#46507a;padding:4px 10px;border-radius:999px}
 
   /* ---------- Bar station (exp 2) ---------- */
   @media(min-width:880px){.bar-grid{grid-template-columns:1fr minmax(260px,330px)}}
@@ -186,8 +186,8 @@
     display:flex;align-items:center;gap:13px;transition:.18s
   }
   .liq:hover{border-color:rgba(126,142,255,.5);transform:translateX(2px)}
-  .liq[aria-pressed="true"]{border-color:#fff;background:var(--ink-3);box-shadow:0 0 0 3px rgba(126,142,255,.25)}
-  .liq .chip{width:30px;height:30px;border-radius:9px;flex:0 0 auto;box-shadow:0 0 14px currentColor}
+  .liq[aria-pressed="true"]{border-color:var(--pea);background:var(--ink-3);box-shadow:0 0 0 3px rgba(58,82,214,.18)}
+  .liq .chip{width:30px;height:30px;border-radius:9px;flex:0 0 auto;box-shadow:inset 0 0 0 1px rgba(20,30,80,.12)}
   .liq b{font-size:.95rem;display:block}
   .liq small{color:var(--muted);font-size:.74rem}
   .sugarbox{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -196,7 +196,7 @@
   .weightbar i{display:block;height:100%;background:linear-gradient(90deg,#ffe29a,var(--sugar));transition:width .25s}
   .pour{
     appearance:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1.05rem;
-    color:#0a0e26;background:linear-gradient(120deg,#cdd6ff,#fff);
+    color:#fff;background:var(--pea);
     padding:15px;border-radius:15px;width:100%;box-shadow:0 8px 22px rgba(0,0,0,.3);transition:.16s;margin-top:4px
   }
   .pour:hover{transform:translateY(-2px)}
@@ -205,9 +205,9 @@
     min-height:24px;text-align:center;font-weight:600;font-size:.92rem;margin-top:10px;
     transition:.3s;color:var(--muted)
   }
-  .toast.ok{color:var(--good)}.toast.mix{color:var(--sugar)}.toast.win{color:#fff}
+  .toast.ok{color:var(--good)}.toast.mix{color:#c0560a}.toast.win{color:#c026a3}
   .layer-legend{margin-top:14px;display:grid;gap:6px}
-  .layer-legend .row{display:flex;align-items:center;gap:9px;font-size:.82rem;color:#cfd6f7}
+  .layer-legend .row{display:flex;align-items:center;gap:9px;font-size:.82rem;color:#3c4566}
   .layer-legend .row i{width:16px;height:16px;border-radius:5px;flex:0 0 auto}
 
   /* ---------- Quiz ---------- */
@@ -245,7 +245,7 @@
   .qnav{display:flex;justify-content:flex-end;margin-top:18px}
   .next{
     appearance:none;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;
-    color:#0a0e26;background:linear-gradient(120deg,#cdd6ff,#fff);padding:12px 26px;border-radius:13px;
+    color:#fff;background:var(--pea);padding:12px 26px;border-radius:13px;
     transition:.16s;box-shadow:0 8px 20px rgba(0,0,0,.3)
   }
   .next:hover{transform:translateY(-2px)}
@@ -255,13 +255,13 @@
   .result .score{font-size:4rem;font-weight:700;font-family:'Fredoka',sans-serif;line-height:1}
   .result .score span{font-size:1.6rem;color:var(--muted)}
   .result h3{font-size:1.5rem;margin:8px 0 6px;justify-content:center}
-  .result p{color:#cfd6f7;max-width:46ch;margin:0 auto 18px}
+  .result p{color:#414b70;max-width:46ch;margin:0 auto 18px}
   .medal{font-size:3.4rem;margin-bottom:6px}
   .retry{
     appearance:none;border:1px solid var(--line);cursor:pointer;font-family:inherit;font-weight:700;
     color:var(--paper);background:var(--ink-2);padding:13px 30px;border-radius:13px;font-size:1rem;transition:.16s
   }
-  .retry:hover{border-color:#fff;transform:translateY(-2px)}
+  .retry:hover{border-color:var(--pea);transform:translateY(-2px)}
 
   footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:.84rem;text-align:center}
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -326,11 +326,11 @@
               </g>
               <!-- beaker outline -->
               <path d="M48 70 L48 200 Q48 224 72 224 L118 224 Q142 224 142 200 L142 70"
-                    fill="none" stroke="#cdd6ff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                    fill="none" stroke="#7682b0" stroke-width="3" stroke-linecap="round" opacity=".85"/>
               <!-- rim / spout -->
-              <path d="M44 70 L96 70 M96 70 L150 70 Q156 70 150 64 L142 70" fill="none" stroke="#cdd6ff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+              <path d="M44 70 L96 70 M96 70 L150 70 Q156 70 150 64 L142 70" fill="none" stroke="#7682b0" stroke-width="3" stroke-linecap="round" opacity=".85"/>
               <!-- ticks -->
-              <g stroke="#9aa6e0" stroke-width="2" opacity=".55">
+              <g stroke="#9098bf" stroke-width="2" opacity=".55">
                 <line x1="130" y1="100" x2="142" y2="100"/>
                 <line x1="130" y1="135" x2="142" y2="135"/>
                 <line x1="130" y1="170" x2="142" y2="170"/>
@@ -340,13 +340,8 @@
         </div>
 
         <div class="reading">
-          <div class="ph" id="phNum" style="color:var(--pea)">pH 7</div>
-          <div class="state" id="phState" style="color:var(--pea)">中性 · 蝶豆花藍</div>
-        </div>
-
-        <div class="scale">
-          <div class="track"><span class="marker" id="phMarker" style="left:50%"></span></div>
-          <div class="ticks"><span>酸 1</span><span>4</span><span>7 中</span><span>10</span><span>鹼 13</span></div>
+          <div class="ph" id="phState" style="color:var(--pea);font-size:1.7rem;line-height:1.3">中性 · 蝶豆花藍</div>
+          <div class="state" id="phSub" style="color:var(--muted)">純蝶豆花水的原色</div>
         </div>
       </div>
 
@@ -354,20 +349,16 @@
       <div style="display:grid;gap:22px">
         <div class="card">
           <h3><span class="num">①</span> 動手調調看</h3>
-          <p class="hint" style="margin-bottom:14px">點按下面的按鈕加入材料，或直接拖曳滑桿改變酸鹼，看看燒杯裡的顏色怎麼變！</p>
+          <p class="hint" style="margin-bottom:14px">點按下面的按鈕，加入檸檬汁或小蘇打水，看看燒杯裡的蝶豆花水會變成什麼顏色！</p>
           <div class="controls">
             <button class="drop-btn btn-acid" id="addAcid">
               <span class="ico">🍋</span>
-              <span>加一滴檸檬汁<small>酸性 → 顏色往紫紅跑</small></span>
+              <span>加檸檬汁（酸）<small>看看會變什麼顏色</small></span>
             </button>
             <button class="drop-btn btn-base" id="addBase">
               <span class="ico">🧂</span>
-              <span>加一匙小蘇打水<small>鹼性 → 顏色往藍綠跑</small></span>
+              <span>加小蘇打水（鹼）<small>看看會變什麼顏色</small></span>
             </button>
-            <div class="slider-row">
-              <label><span>酸 ←　拖曳改變酸鹼　→ 鹼</span><span id="sliderVal">pH 7</span></label>
-              <input type="range" id="phRange" min="1" max="13" step="0.5" value="7">
-            </div>
             <button class="drop-btn btn-reset" id="resetMix">↺ 倒掉重來（回到純蝶豆花水）</button>
           </div>
         </div>
@@ -375,7 +366,7 @@
         <div class="card">
           <h3><span class="num">②</span> 為什麼會這樣？</h3>
           <div class="explain" id="explainBox">
-            <b>純蝶豆花水是藍色的。</b> 花青素在中性的水裡呈現漂亮的藍色。試著加一點酸或鹼，這裡會告訴你發生了什麼事！
+            <b>純蝶豆花水是藍色的。</b> 在中性的水裡，花青素呈現漂亮的藍色。試著加檸檬汁或小蘇打水，看看會變什麼顏色！
           </div>
           <div class="swatches">
             <div class="sw"><div class="dot" style="background:var(--acid);color:var(--acid)"></div><b>酸性</b><span>檸檬汁 → 紫紅色</span></div>
@@ -432,12 +423,12 @@
                 <g id="iceG"></g>
               </g>
               <path d="M52 36 L60 256 Q60 262 66 262 L104 262 Q110 262 110 256 L118 36"
-                    fill="none" stroke="#cdd6ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
-              <line x1="52" y1="36" x2="118" y2="36" stroke="#cdd6ff" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+                    fill="none" stroke="#7682b0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+              <line x1="52" y1="36" x2="118" y2="36" stroke="#7682b0" stroke-width="3" stroke-linecap="round" opacity=".85"/>
             </svg>
           </div>
         </div>
-        <div class="toast" id="barToast">教案順序:糖水當底 → 🧊 加冰塊 → 檸檬水/小蘇打水沿冰塊倒 → 最後輕輕倒蝶豆花水 ✨</div>
+        <div class="toast" id="barToast">選一種飲料，按「倒入杯中」開始調製，挑戰看看能不能疊出漸層飲料 ✨</div>
         <div class="layer-legend" id="legend"></div>
       </div>
 
@@ -472,7 +463,7 @@
         </div>
 
         <div class="card">
-          <h3><span class="num">③</span> 真的動手做（教案配方）</h3>
+          <h3><span class="num">③</span> 真的動手做（調製步驟）</h3>
           <ol class="steps">
             <li><span>先加入<b>糖水</b>（6 平匙糖）當底。</span></li>
             <li><span>再加入<b>冰塊</b>到杯口（約九分滿）。</span></li>
@@ -505,7 +496,7 @@
 </section>
 
 <footer>
-  自然科學實驗 · 調酒師特訓　|　核心概念：花青素酸鹼指示劑 × 溶液比重與漸層　|　適用：四年級
+  自然科學實驗 · 調酒師特訓　|　核心概念：花青素酸鹼指示劑 × 溶液比重與漸層
 </footer>
 
 <script>
@@ -526,79 +517,43 @@
   }
   tabs.forEach(function(t){t.addEventListener('click',function(){selectTab(t);});});
 
-  /* ================= 實驗一：pH 變色 ================= */
-  // 色階關鍵點 (pH -> RGB)，依花青素特性：酸=紫紅、中=藍、鹼=藍綠/綠
-  var stops = [
-    {p:1,  c:[224,30,90]},   // 深紅
-    {p:3,  c:[214,51,108]},  // 紫紅
-    {p:5,  c:[124,72,232]},  // 紫
-    {p:7,  c:[67,97,238]},   // 蝶豆花藍
-    {p:8.5,c:[16,152,173]},  // 藍綠
-    {p:10, c:[12,166,120]},  // 綠
-    {p:13, c:[102,168,15]}   // 黃綠
-  ];
-  function lerp(a,b,t){return Math.round(a+(b-a)*t);}
-  function phToColor(ph){
-    if(ph<=stops[0].p) return stops[0].c.slice();
-    if(ph>=stops[stops.length-1].p) return stops[stops.length-1].c.slice();
-    for(var i=0;i<stops.length-1;i++){
-      var s0=stops[i], s1=stops[i+1];
-      if(ph>=s0.p && ph<=s1.p){
-        var t=(ph-s0.p)/(s1.p-s0.p);
-        return [lerp(s0.c[0],s1.c[0],t),lerp(s0.c[1],s1.c[1],t),lerp(s0.c[2],s1.c[2],t)];
-      }
-    }
-    return [67,97,238];
-  }
+  /* ================= 實驗一：加檸檬／加小蘇打 變色 ================= */
+  // 只呈現三種狀態的顏色：中性（藍）、加酸（紫紅）、加鹼（藍綠）
   var rgb = function(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')';};
+  var ECOLORS={
+    neutral:[67,97,238],   // 蝶豆花藍
+    acid:[210,50,110],     // 紫紅
+    base:[22,185,150]      // 藍綠
+  };
+  var ESTATE={
+    neutral:{label:'中性 · 蝶豆花藍', sub:'純蝶豆花水的原色', cls:'--pea',
+      why:'<b>純蝶豆花水是藍色的。</b>在中性的水裡，花青素呈現漂亮的<b>藍色</b>。加檸檬汁或小蘇打水，看看會變成什麼顏色！'},
+    acid:{label:'酸性 · 紫紅色', sub:'加了檸檬汁（酸）', cls:'--acid',
+      why:'<b>加了檸檬汁（酸性）！</b>花青素遇到<b>酸</b>會改變形狀，顏色變成<b>紫紅色</b>。'},
+    base:{label:'鹼性 · 藍綠色', sub:'加了小蘇打（鹼）', cls:'--base',
+      why:'<b>加了小蘇打（鹼性）！</b>花青素遇到<b>鹼</b>會改變形狀，顏色變成<b>藍綠色</b>。'}
+  };
 
-  var phRange=$('#phRange'), liquid=$('#liquid'), glowRect=$('#glowRect'),
-      liquidShine=$('#liquidShine'), surface=$('#surface'),
-      phNum=$('#phNum'), phState=$('#phState'), phMarker=$('#phMarker'),
-      sliderVal=$('#sliderVal'), explainBox=$('#explainBox'), glow1=$('#glow1');
+  var liquid=$('#liquid'), glowRect=$('#glowRect'),
+      phState=$('#phState'), phSub=$('#phSub'),
+      explainBox=$('#explainBox'), glow1=$('#glow1');
 
-  function stateInfo(ph){
-    if(ph<=3)  return {label:'酸性 · 紫紅色', cls:'--acid',
-      why:'<b>加了酸（像檸檬汁）！</b>花青素遇到酸會改變形狀，把光變成<b>紫紅色</b>反射出來。酸性越強，紅得越明顯。'};
-    if(ph<5)   return {label:'微酸 · 偏紫', cls:'--acid',
-      why:'<b>有一點酸囉。</b>花青素正從藍色慢慢轉成紫色，再多加一點酸就會變成紫紅色。'};
-    if(ph<6.5) return {label:'接近中性 · 藍紫', cls:'--pea',
-      why:'<b>快回到中性了。</b>顏色介於藍與紫之間，這時候酸鹼差不多平衡。'};
-    if(ph<=7.5)return {label:'中性 · 蝶豆花藍', cls:'--pea',
-      why:'<b>純蝶豆花水的原色。</b>在中性的水裡，花青素呈現漂亮的<b>藍色</b>。'};
-    if(ph<9)   return {label:'微鹼 · 藍綠', cls:'--base',
-      why:'<b>加了一點鹼（像小蘇打）。</b>花青素再次變形，開始往<b>藍綠色</b>移動。'};
-    if(ph<11)  return {label:'鹼性 · 藍綠/綠', cls:'--base',
-      why:'<b>鹼性變強了！</b>顏色變成清涼的<b>藍綠色</b>甚至偏綠。這就是小蘇打的傑作。'};
-    return {label:'強鹼 · 黃綠', cls:'--base',
-      why:'<b>很強的鹼。</b>花青素被改變得更多，顏色一路變到<b>黃綠色</b>。'};
-  }
-
-  function setPh(ph, animate){
-    ph=Math.max(1,Math.min(13,ph));
-    var c=phToColor(ph), col=rgb(c);
+  function setState(key){
+    var c=ECOLORS[key], col=rgb(c), info=ESTATE[key];
+    var cssCol=getComputedStyle(document.documentElement).getPropertyValue(info.cls).trim();
     liquid.setAttribute('fill',col);
     glowRect.setAttribute('fill',col);
-    var info=stateInfo(ph);
-    var cssCol=getComputedStyle(document.documentElement).getPropertyValue(info.cls).trim();
-    phNum.textContent='pH '+(Math.round(ph*10)/10);
-    phNum.style.color=cssCol;
-    phState.textContent=info.label;
-    phState.style.color=cssCol;
-    sliderVal.textContent='pH '+(Math.round(ph*10)/10);
-    var pct=((ph-1)/12)*100;
-    phMarker.style.left=pct+'%';
+    phState.textContent=info.label; phState.style.color=cssCol;
+    phSub.textContent=info.sub;
     explainBox.style.borderColor=cssCol;
     explainBox.innerHTML=info.why;
     glow1.style.filter='drop-shadow(0 0 26px '+col+'88)';
-    phRange.value=ph;
   }
 
-  $('#addAcid').addEventListener('click',function(){setPh(parseFloat(phRange.value)-1.5);});
-  $('#addBase').addEventListener('click',function(){setPh(parseFloat(phRange.value)+1.5);});
-  phRange.addEventListener('input',function(){setPh(parseFloat(phRange.value));});
-  $('#resetMix').addEventListener('click',function(){setPh(7);});
-  setPh(7);
+  $('#addAcid').addEventListener('click',function(){setState('acid');});
+  $('#addBase').addEventListener('click',function(){setState('base');});
+  $('#resetMix').addEventListener('click',function(){setState('neutral');});
+  setState('neutral');
 
   /* ================= 練習一：漸層調酒 ================= */
   var LIQS={
@@ -877,9 +832,9 @@
     {tag:'比重與漸層', q:'要做漸層飲料，糖加最多、最重的那一杯，應該放在杯子的哪一層？',
      o:['最上層','中間層','最下層','隨便都可以'], a:2,
      fb:'正確！糖最多的溶液<b>最重</b>，要先倒、放在<b>最下層</b>，上面的層才疊得起來。'},
-    {tag:'比重原理', q:'為什麼糖水要先倒，沒加糖的蝶豆花水要最後輕輕倒入？',
-     o:['因為糖水比較甜','因為含糖多比較重、含糖少比較輕','因為蝶豆花水比較貴','沒有原因，習慣而已'], a:1,
-     fb:'答對！這就是<b>比重</b>的概念：<b>含糖越多越重會沉下去</b>，含糖少比較輕會浮上來。'},
+    {tag:'漸層成因', q:'漸層飲料裡，藍色的蝶豆花水疊在檸檬水上面，交界的地方會變成什麼顏色？',
+     o:['還是藍色','紫紅色','透明','黑色'], a:1,
+     fb:'答對！蝶豆花的花青素碰到<b>酸</b>會變色，所以藍色蝶豆花水和檸檬水的<b>交界</b>會出現<b>紫紅色</b>——這就是漸層最美的地方！'},
     {tag:'材料分類', q:'下列哪一個是「酸性」的材料？',
      o:['檸檬汁','小蘇打','清水','砂糖'], a:0,
      fb:'正確！<b>檸檬汁</b>是酸性；小蘇打是鹼性；清水大致中性。'},
